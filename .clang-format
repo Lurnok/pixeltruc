@@ -1,0 +1,102 @@
+---
+# Clang-format applies C++ formatting rules to C code under the "Cpp" language flag.
+Language: Cpp
+BasedOnStyle: LLVM
+
+# -----------------------------------------------------------------------------
+# Security & Ambiguity Prevention
+# -----------------------------------------------------------------------------
+
+# CRITICAL: Automatically insert braces around all control statements (if, while, for).
+# This prevents vulnerabilities where macros or added statements fall outside the intended scope.
+InsertBraces: true
+
+# Never allow short statements on a single line. Every scope must be clearly delineated.
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# -----------------------------------------------------------------------------
+# Indentation & Whitespace
+# -----------------------------------------------------------------------------
+
+# Strictly forbid tabs. Tabs render differently depending on the viewer/editor,
+# which can mask misleading indentation. Spaces ensure what you see is what you get.
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+
+# Keep lines at a reviewable length. 100 or 80 is standard; 100 prevents aggressive wrapping.
+ColumnLimit: 100
+
+# -----------------------------------------------------------------------------
+# Braces Style (1TBS / K&R Style)
+# -----------------------------------------------------------------------------
+
+# Standard C style: Control statement braces on the same line, function braces on a new line.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeElse: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+
+# -----------------------------------------------------------------------------
+# Alignment & Readability
+# -----------------------------------------------------------------------------
+
+# Align consecutive assignments and declarations to make identifying anomalies easier.
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+
+# Standard C pointer convention: int *ptr; (Attached to the variable, not the type)
+PointerAlignment: Right
+
+# Break after the return type for top-level function definitions for easier grep/reading.
+AlwaysBreakAfterReturnType: TopLevel
+
+# Ensure proper spacing around operators to avoid visual crowding.
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+
+# Keep a maximum of one empty line to separate logic blocks without excessive whitespace.
+MaxEmptyLinesToKeep: 1
+
+# -----------------------------------------------------------------------------
+# Include Sorting & Grouping
+# -----------------------------------------------------------------------------
+
+# Enable sorting
+SortIncludes: CaseSensitive
+
+# 'Regroup' tells clang-format to merge all includes into one block, sort them
+# by category priority, and then insert a blank line between different categories.
+IncludeBlocks: Regroup
+
+# Define the categories using Regex. Lower priority numbers go first.
+IncludeCategories:
+  # Priority 1: System headers (enclosed in angle brackets < >)
+  - Regex: "^<.*>"
+    Priority: 2
+    SortPriority: 1
+
+  # Priority 2: Local project headers (enclosed in quotes " ")
+  - Regex: '^".*"'
+    Priority: 1
+    SortPriority: 0
+...

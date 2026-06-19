@@ -11,10 +11,10 @@ Bitmap * createEmptyBitmap(uint w, uint h){
         return NULL;
     }
 
-    for(int i = 0; i < w; ++i){
+    for(uint i = 0; i < w; ++i){
         bitmap->bmp[i] = malloc(h*sizeof(SDL_Color));
         if(!bitmap->bmp[i]){
-            for(int j = 0; j < i; ++j){
+            for(uint j = 0; j < i; ++j){
                 free(bitmap->bmp[j]);
             }
             free(bitmap->bmp);
@@ -22,7 +22,7 @@ Bitmap * createEmptyBitmap(uint w, uint h){
             return NULL;
         }
 
-        for(int j = 0; j < h; ++j){
+        for(uint j = 0; j < h; ++j){
             SDL_Color empty;
             empty.r = 255;
             empty.g = 255;
@@ -45,8 +45,8 @@ Bitmap * duplicateBitmap(Bitmap * bitmap){
     Bitmap * newBmp = createEmptyBitmap(bitmap->w, bitmap->h);
     if(!newBmp) return NULL;
 
-    for(int i = 0; i < bitmap->w; ++i){
-        for(int j = 0; j < bitmap->h; ++j){
+    for(uint i = 0; i < bitmap->w; ++i){
+        for(uint j = 0; j < bitmap->h; ++j){
             newBmp->bmp[i][j] = bitmap->bmp[i][j];
         }
     }
@@ -57,7 +57,7 @@ Bitmap * duplicateBitmap(Bitmap * bitmap){
 void destroyBitmap(Bitmap * bitmap){
     if(!bitmap) return;
 
-    for(int i = 0; i < bitmap->w; ++i){
+    for(uint i = 0; i < bitmap->w; ++i){
         free(bitmap->bmp[i]);
     }
 

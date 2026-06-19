@@ -10,5 +10,7 @@ typedef struct _Bitmap Bitmap;
 typedef struct _Layer Layer;
 typedef struct _Project Project;
 typedef struct _Layers Layers;
+typedef struct _Engine Engine;
+typedef struct _App App;
 
 #endif

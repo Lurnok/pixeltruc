@@ -56,7 +56,7 @@ Layers * createLayers(uint capacity){
 void deleteLayers(Layers * layers){
     if(!layers) return;
     
-    for(int i = 0; i < layers->size; ++i){
+    for(uint i = 0; i < layers->size; ++i){
         free(layers->layers[i]);
     }
 
